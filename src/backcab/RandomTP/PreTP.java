@@ -2,7 +2,6 @@ package backcab.RandomTP;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -33,7 +32,7 @@ public class PreTP {
 			return;
 		}
 			
-		sendTP(type, p.getUniqueId());
+		sendTP(type, p.getName());
 		
 	}
 	
@@ -68,7 +67,7 @@ public class PreTP {
 		return true;
 	}
 
-	private void sendTP(TeleportType type, UUID uuid){
+	private void sendTP(TeleportType type, String name){
 		
 		boolean rand = (Boolean)parse("random_world", Boolean.FALSE, "Invalid value for random_world. Defaulting to false.");
 		List<String> worlds = config.getConfig().getStringList("valid_worlds");
@@ -95,7 +94,7 @@ public class PreTP {
 		boolean usingWG = (Boolean)parse("worldguard", Boolean.FALSE, "Invalid value for worldguard. Defaulting to false.");
 		boolean usingWB = (Boolean)parse("worldborder", Boolean.FALSE, "Invalid value for worldborder. Defaulting to false.");
 		
-		Task t = new Task(rand, worlds, maxX, maxZ, minX, minZ, message, price, cooldown, priceEnabled, cooldownEnabled, biomes, blocks, uuid, usingTowny, usingFactions, usingWG, usingWB);
+		Task t = new Task(rand, worlds, maxX, maxZ, minX, minZ, message, price, cooldown, priceEnabled, cooldownEnabled, biomes, blocks, name, usingTowny, usingFactions, usingWG, usingWB);
 		
 		int id = Bukkit.getScheduler().runTaskTimer(rtp, t, 0, 1).getTaskId();
 		

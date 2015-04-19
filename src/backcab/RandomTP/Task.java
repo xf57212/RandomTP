@@ -3,7 +3,6 @@ package backcab.RandomTP;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 import net.milkbowl.vault.economy.Economy;
 
@@ -26,16 +25,16 @@ public class Task implements Runnable{
 	private int maxX, maxZ, minX, minZ, cooldown;
 	private double price;
 	
-	private UUID id;
+	private String id;
 	
-	private static HashMap<UUID, Integer> players;
-	private static HashMap<UUID, Long> cooldowns;
+	private static HashMap<String, Integer> players;
+	private static HashMap<String, Long> cooldowns;
 	private static RandomTP rtp;
 
 	protected Task(boolean rand, List<String> worlds, int maxX, int maxZ,
 			int minX, int minZ, boolean message, double price, int cooldown,
 			boolean priceEnabled, boolean cooldownEnabled, List<String> biomes, 
-			List<String> blocks, UUID id, boolean usingTowny, boolean usingFactions, 
+			List<String> blocks, String id, boolean usingTowny, boolean usingFactions, 
 			boolean usingWG, boolean usingWB) {
 		
 		//cancel the existing task for this user if one exist
@@ -79,8 +78,8 @@ public class Task implements Runnable{
 	}
 	
 	protected static void init(RandomTP rtp){
-		players = new HashMap<UUID, Integer>();
-		cooldowns = new HashMap<UUID, Long>();
+		players = new HashMap<String, Integer>();
+		cooldowns = new HashMap<String, Long>();
 		Task.rtp = rtp;
 	}
 	
@@ -88,10 +87,10 @@ public class Task implements Runnable{
 		players.put(id, taskId);
 	}
 
-	protected static void cancel(UUID uuid) {
-		if(players.containsKey(uuid)){
-			Bukkit.getScheduler().cancelTask(players.get(uuid));
-			players.remove(uuid);
+	protected static void cancel(String name) {
+		if(players.containsKey(name)){
+			Bukkit.getScheduler().cancelTask(players.get(name));
+			players.remove(name);
 		}
 	}
 
@@ -144,7 +143,7 @@ public class Task implements Runnable{
 		//cooldown add
 		if(!rtp.checkPermission(p, "randomtp.cdexempt", null) && cooldown != 0 && cooldownEnabled){
 			rtp.file("Adding cooldown for " + p.getName());
-			cooldowns.put(p.getUniqueId(), System.currentTimeMillis());
+			cooldowns.put(p.getName(), System.currentTimeMillis());
 		}
 		
 		//force load chunk so player doesn't spawn in wall

@@ -43,12 +43,12 @@ public class BuildTask implements Runnable{
 		this.old = old;
 	}
 	
-	@SuppressWarnings("deprecation")
+	//@SuppressWarnings("deprecation")
 	public void run() {
 		for(int z = z1; z <= z2; z++){
 			Block b = new Location(world, x, y, z).getBlock();
 			if(b.getType().equals(old)){
-				b.setType(m, false);
+				b.setType(m);
 				b.setData(data);
 				b.getState().update(true, false);
 			}

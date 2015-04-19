@@ -55,7 +55,7 @@ public class TPCommand implements CommandExecutor{
 		
 		// /rtp <player>
 		if(args.length == 1 && rtp.checkPermission(sender, "randomtp.other", "You do not have permission to use this command.")){
-			@SuppressWarnings("deprecation")
+			//@SuppressWarnings("deprecation")
 			Player p = Bukkit.getPlayer(args[0]);
 			
 			if(p == null){

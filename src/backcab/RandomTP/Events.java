@@ -30,7 +30,7 @@ public class Events implements Listener{
 	
 	@EventHandler
 	protected void logoff(PlayerQuitEvent event){
-		Task.cancel(event.getPlayer().getUniqueId());
+		Task.cancel(event.getPlayer().getName());
 	}
 	
 	@EventHandler
