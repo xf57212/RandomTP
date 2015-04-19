@@ -1,0 +1,10 @@
+name: RandomTP
+version: 2.3
+description: RandomTP
+main: backcab.RandomTP.RandomTP
+softdepend: [Towny,WorldGuard,Factions,WorldBorder,Vault]
+commands:
+  randomtp:
+    usage: /randomtp [player|portal|reload]
+    description: randomly teleports you or another player
+    aliases: [rtp]
