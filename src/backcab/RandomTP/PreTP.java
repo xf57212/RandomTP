@@ -104,6 +104,14 @@ public class PreTP {
 	private Object parse(String s, Object o, String warning){
 		String thing = config.getConfig().getString(s);
 		
+		if(thing == null){
+			try {
+				config.update();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		try{
 			Integer i = Integer.parseInt(thing);
 			if(o instanceof Integer){
