@@ -185,8 +185,10 @@ public class Task implements Runnable{
 		//set maxX and maxZ to worldborder if applicable
 		if(usingWB && Bukkit.getPluginManager().isPluginEnabled("WorldBorder")){
 			com.wimbli.WorldBorder.BorderData bd = com.wimbli.WorldBorder.Config.Border(world.getName());
-			maxX = bd.getRadiusX();
-			maxZ = bd.getRadiusZ();
+			if(bd != null){
+				maxX = bd.getRadiusX();
+				maxZ = bd.getRadiusZ();
+			}
 		}
 		
 		//get random x and z values centered around the spawn point
