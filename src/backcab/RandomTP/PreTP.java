@@ -32,6 +32,11 @@ public class PreTP {
 			p.sendMessage(ChatColor.RED + "Cannot teleport from this location. Please be sure you are not falling, jumping, or swimming");
 			return;
 		}
+		
+		Boolean oneTime = (Boolean)parse("oneTimeUse", Boolean.FALSE, "Invalid value for anticheat. Defaulting to false.");
+		if(!type.equals(TeleportType.CMD) && oneTime == true && alreadyUsed(p.getUniqueId().toString())){
+			
+		}
 			
 		sendTP(type, p.getUniqueId());
 		
@@ -67,6 +72,10 @@ public class PreTP {
 		}
 		
 		return true;
+	}
+	
+	private boolean alreadyUsed(String id){
+		return rtp.usage().getConfig().getKeys(false).contains(id);
 	}
 
 	private void sendTP(TeleportType type, UUID uuid){
