@@ -1,3 +1,4 @@
+configversion: 2.4
 ##############
 # WORLD INFO #
 ##############
@@ -57,3 +58,4 @@ debug: false
 send_message_on_tp: false
 anticheat: false
 preventPortalUpdate: true
+oneTimeUse: false
