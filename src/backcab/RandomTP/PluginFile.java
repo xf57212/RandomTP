@@ -10,6 +10,9 @@ public class PluginFile {
 	private YamlConfiguration file;
 	private File f;
 	
+	private RandomTP p;
+	private String name;
+	
 	protected PluginFile(RandomTP p, String name, boolean copy){
 		f = new File(p.getDataFolder().toString() + "/" + name + ".yml");
 		if(!f.exists()){
@@ -21,7 +24,10 @@ public class PluginFile {
 				} catch (IOException e) {}
 			}
 		}
-		file = YamlConfiguration.loadConfiguration(f);
+		reload();
+		try{
+			update();
+		} catch(Exception e) {}
 	}
 	
 	protected ConfigurationSection get(String path){
@@ -34,10 +40,19 @@ public class PluginFile {
 	
 	protected void save() throws IOException{
 		file.save(f);
-		file = YamlConfiguration.loadConfiguration(f);
+		reload();
 	}
 	
 	protected void reload(){
 		file = YamlConfiguration.loadConfiguration(f);
+	}
+	
+	protected void update() throws IOException{
+		p.saveResource(name + ".yml", false);
+		YamlConfiguration temp = YamlConfiguration.loadConfiguration(f);
+		for(String s: file.getKeys(true)){
+			temp.set(s, file.get(s));
+		}
+		save();
 	}
 }
