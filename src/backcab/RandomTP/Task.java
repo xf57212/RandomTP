@@ -15,8 +15,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
-import com.massivecraft.massivecore.ps.PS;
-
 public class Task implements Runnable{
 	
 	private boolean rand, message, priceEnabled, cooldownEnabled, 
@@ -130,7 +128,7 @@ public class Task implements Runnable{
 				econ = rsp.getProvider();
 			}
 			
-			net.milkbowl.vault.economy.EconomyResponse.ResponseType type = econ.withdrawPlayer(p, price).type;
+			net.milkbowl.vault.economy.EconomyResponse.ResponseType type = econ.withdrawPlayer(p.getName(), price).type;
 			
 			if(!type.equals(net.milkbowl.vault.economy.EconomyResponse.ResponseType.SUCCESS)){
 				p.sendMessage(ChatColor.GOLD + "Not enough money. Random teleports cost $" + price);
@@ -263,8 +261,8 @@ public class Task implements Runnable{
 		
 		//factions
 		if(usingFactions && pm.isPluginEnabled("MassiveCore") && pm.isPluginEnabled("Factions")){
-			com.massivecraft.massivecore.ps.PS ps = PS.valueOf(loc).getChunk(true);
-			com.massivecraft.factions.entity.Faction f = com.massivecraft.factions.entity.BoardColl.get().getFactionAt(ps);
+			com.massivecraft.mcore.ps.PS ps = com.massivecraft.mcore.ps.PS.valueOf(loc).getChunk(true);
+			com.massivecraft.factions.entity.Faction f = com.massivecraft.factions.entity.BoardColls.get().getFactionAt(ps);
 
 			if(!f.getId().equals("none")){
 				return true;
@@ -273,7 +271,8 @@ public class Task implements Runnable{
 		
 		//worldguard
 		if(usingWG && pm.isPluginEnabled("WorldGuard")){
-			com.sk89q.worldguard.protection.managers.RegionManager rm = com.sk89q.worldguard.bukkit.WorldGuardPlugin.inst().getRegionManager(loc.getWorld());
+			com.sk89q.worldguard.protection.managers.RegionManager rm = 
+					((com.sk89q.worldguard.bukkit.WorldGuardPlugin)Bukkit.getServer().getPluginManager().getPlugin("WorldGuard")).getRegionManager(loc.getWorld());
 			if(rm != null){
 				List<String> list = rm.getApplicableRegionsIDs(com.sk89q.worldedit.bukkit.BukkitUtil.toVector(loc));
 				if(list != null && list.size() != 0){
