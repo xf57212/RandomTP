@@ -21,7 +21,7 @@ import com.massivecraft.massivecore.ps.PS;
 public class Task implements Runnable{
 	
 	private boolean rand, message, priceEnabled, cooldownEnabled, 
-					usingTowny, usingFactions, usingWG, usingWB;
+					usingTowny, usingFactions, usingWG, usingWB, oneTime;
 	private List<String> worldList, biomes, blocks;
 	private int maxX, maxZ, minX, minZ, cooldown;
 	private double price;
@@ -36,7 +36,7 @@ public class Task implements Runnable{
 			int minX, int minZ, boolean message, double price, int cooldown,
 			boolean priceEnabled, boolean cooldownEnabled, List<String> biomes, 
 			List<String> blocks, UUID id, boolean usingTowny, boolean usingFactions, 
-			boolean usingWG, boolean usingWB) {
+			boolean usingWG, boolean usingWB, boolean oneTime) {
 		
 		//cancel the existing task for this user if one exist
 		cancel(id);
@@ -59,6 +59,7 @@ public class Task implements Runnable{
 		this.usingFactions = usingFactions;
 		this.usingWG = usingWG;
 		this.usingWB = usingWB;
+		this.oneTime = oneTime;
 		
 		rtp.file("Initialized task for " + Bukkit.getPlayer(id).getName() + 
 				"\n  rand: " + rand +
@@ -75,7 +76,8 @@ public class Task implements Runnable{
 				"\n biomes: " + biomes +
 				"\n blocks: " + blocks +
 				"\n id: " + id +
-				"\n usingWB: " + usingWB);
+				"\n usingWB: " + usingWB +
+				"\n oneTime: " + oneTime);
 	}
 	
 	protected static void init(RandomTP rtp){
@@ -145,6 +147,12 @@ public class Task implements Runnable{
 		if(!rtp.checkPermission(p, "randomtp.cdexempt", null) && cooldown != 0 && cooldownEnabled){
 			rtp.file("Adding cooldown for " + p.getName());
 			cooldowns.put(p.getUniqueId(), System.currentTimeMillis());
+		}
+		
+		//add user to usage list if one time is enabled
+		if(oneTime){
+			rtp.file("Adding " + p.getName() + " to usage list");
+			rtp.usage().getConfig().createSection(p.getUniqueId().toString());
 		}
 		
 		//force load chunk so player doesn't spawn in wall

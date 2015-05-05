@@ -33,9 +33,11 @@ public class PreTP {
 			return;
 		}
 		
-		Boolean oneTime = (Boolean)parse("oneTimeUse", Boolean.FALSE, "Invalid value for anticheat. Defaulting to false.");
+		boolean oneTime = (Boolean)parse("oneTimeUse", Boolean.FALSE, "Invalid value for anticheat. Defaulting to false.");
 		if(!type.equals(TeleportType.CMD) && oneTime == true && alreadyUsed(p.getUniqueId().toString())){
-			
+			rtp.file(p.getName() + ": already used teleport");
+			p.sendMessage(ChatColor.RED + "You have already used your random teleport. You cannot use it again.");
+			return;
 		}
 			
 		sendTP(type, p.getUniqueId());
@@ -104,8 +106,9 @@ public class PreTP {
 		boolean usingWB = (Boolean)parse("worldborder", Boolean.FALSE, "Invalid value for worldborder. Defaulting to false.");
 		
 		boolean message = (Boolean)parse("send_message_on_tp", Boolean.FALSE, "Invalid value for send_message_on_tp");
+		boolean oneTime = (Boolean)parse("oneTimeUse", Boolean.FALSE, "Invalid value for anticheat. Defaulting to false.");
 		
-		Task t = new Task(rand, worlds, maxX, maxZ, minX, minZ, message, price, cooldown, priceEnabled, cooldownEnabled, biomes, blocks, uuid, usingTowny, usingFactions, usingWG, usingWB);
+		Task t = new Task(rand, worlds, maxX, maxZ, minX, minZ, message, price, cooldown, priceEnabled, cooldownEnabled, biomes, blocks, uuid, usingTowny, usingFactions, usingWG, usingWB, oneTime);
 		
 		int id = Bukkit.getScheduler().runTaskTimer(rtp, t, 0, 1).getTaskId();
 		
