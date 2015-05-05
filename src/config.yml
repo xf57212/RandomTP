@@ -57,3 +57,4 @@ debug: false
 send_message_on_tp: false
 anticheat: false
 preventPortalUpdate: true
+oneTimeUse: false
