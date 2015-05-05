@@ -19,10 +19,12 @@ public class RandomTP extends JavaPlugin{
 
 	private PluginFile config;
 	private PluginFile portals;
+	private PluginFile usage;
 	
 	public void onEnable(){
 		config = new PluginFile(this, "config", true);
 		portals = new PluginFile(this, "portals", false);
+		usage = new PluginFile(this, "usage", false);
 		
 		file("Server Version: " + this.getServer().getVersion());
 		file("RandomTP Version: " + this.getDescription().getVersion());
@@ -104,6 +106,10 @@ public class RandomTP extends JavaPlugin{
 	
 	protected PluginFile portals(){
 		return portals;
+	}
+	
+	protected PluginFile usage(){
+		return usage;
 	}
 	
 }
