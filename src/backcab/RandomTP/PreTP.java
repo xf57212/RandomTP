@@ -56,7 +56,8 @@ public class PreTP {
 	}
 	
 	private boolean validPosition(Location loc, boolean flying){
-		if(config.getConfig().getBoolean("anticheat") == true && 
+		Boolean anticheat = (Boolean)parse("anticheat", Boolean.FALSE, "Invalid value for anticheat. Defaulting to false.");
+		if(anticheat == true &&  
 			(loc.getBlock().getType().equals(Material.STATIONARY_LAVA) || 
 			loc.getBlock().getType().equals(Material.STATIONARY_WATER) || 
 		    (loc.subtract(0, 1, 0).getBlock().getType().equals(Material.AIR) && flying == false))){
