@@ -78,8 +78,6 @@ public class PreTP {
 		int minX = (Integer)parse("radius.min_X", 0, "Invalid value for min_X. Defaulting to 0");
 		int minZ = (Integer)parse("radius.min_Z", 0, "Invalid value for min_Z. Defaulting to 0");
 		
-		boolean message = (Boolean)parse("send_message_on_tp", Boolean.FALSE, "Invalid value for send_message_on_tp");
-		
 		double price = (Double)parse("price", 0.0, "Invalid value for price. Defaulting to 0.0");
 		int cooldown = (Integer)parse("cooldown", 0, "Invalid value for cooldown. Defaulting to 0");
 		
@@ -94,6 +92,8 @@ public class PreTP {
 		boolean usingFactions = (Boolean)parse("factions", Boolean.FALSE, "Invalid value for factions. Defaulting to false.");
 		boolean usingWG = (Boolean)parse("worldguard", Boolean.FALSE, "Invalid value for worldguard. Defaulting to false.");
 		boolean usingWB = (Boolean)parse("worldborder", Boolean.FALSE, "Invalid value for worldborder. Defaulting to false.");
+		
+		boolean message = (Boolean)parse("send_message_on_tp", Boolean.FALSE, "Invalid value for send_message_on_tp");
 		
 		Task t = new Task(rand, worlds, maxX, maxZ, minX, minZ, message, price, cooldown, priceEnabled, cooldownEnabled, biomes, blocks, name, usingTowny, usingFactions, usingWG, usingWB);
 		
