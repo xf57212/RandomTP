@@ -31,6 +31,13 @@ public class PreTP {
 			p.sendMessage(ChatColor.RED + "Cannot teleport from this location. Please be sure you are not falling, jumping, or swimming");
 			return;
 		}
+		
+		boolean oneTime = (Boolean)parse("oneTimeUse", Boolean.FALSE, "Invalid value for anticheat. Defaulting to false.");
+		if(!type.equals(TeleportType.CMD) && oneTime == true && alreadyUsed(p.getName().toString())){
+			rtp.file(p.getName() + ": already used teleport");
+			p.sendMessage(ChatColor.RED + "You have already used your random teleport. You cannot use it again.");
+			return;
+		}
 			
 		sendTP(type, p.getName());
 		
@@ -66,6 +73,10 @@ public class PreTP {
 		}
 		
 		return true;
+	}
+	
+	private boolean alreadyUsed(String name){
+		return rtp.usage().getConfig().getKeys(false).contains(name);
 	}
 
 	private void sendTP(TeleportType type, String name){

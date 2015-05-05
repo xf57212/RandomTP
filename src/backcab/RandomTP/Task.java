@@ -149,7 +149,7 @@ public class Task implements Runnable{
 		//add user to usage list if one time is enabled
 		if(oneTime){
 			rtp.file("Adding " + p.getName() + " to usage list");
-			rtp.usage().getConfig().createSection(p.getUniqueId().toString());
+			rtp.usage().getConfig().createSection(p.getName().toString());
 		}
 		
 		//force load chunk so player doesn't spawn in wall
