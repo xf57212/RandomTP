@@ -57,7 +57,8 @@ public class PreTP {
 	}
 	
 	private boolean validPosition(Location loc, boolean flying){
-		if(config.getConfig().getBoolean("anticheat") == true && 
+		Boolean anticheat = (Boolean)parse("anticheat", Boolean.FALSE, "Invalid value for anticheat. Defaulting to false.");
+		if(anticheat == true && 
 			(loc.getBlock().getType().equals(Material.STATIONARY_LAVA) || 
 			loc.getBlock().getType().equals(Material.STATIONARY_WATER) || 
 		    (loc.subtract(0, 1, 0).getBlock().getType().equals(Material.AIR) && flying == false))){
@@ -78,8 +79,6 @@ public class PreTP {
 		int minX = (Integer)parse("radius.min_X", 0, "Invalid value for min_X. Defaulting to 0");
 		int minZ = (Integer)parse("radius.min_Z", 0, "Invalid value for min_Z. Defaulting to 0");
 		
-		boolean message = (Boolean)parse("send_message_on_tp", Boolean.FALSE, "Invalid value for send_message_on_tp");
-		
 		double price = (Double)parse("price", 0.0, "Invalid value for price. Defaulting to 0.0");
 		int cooldown = (Integer)parse("cooldown", 0, "Invalid value for cooldown. Defaulting to 0");
 		
@@ -94,6 +93,8 @@ public class PreTP {
 		boolean usingFactions = (Boolean)parse("factions", Boolean.FALSE, "Invalid value for factions. Defaulting to false.");
 		boolean usingWG = (Boolean)parse("worldguard", Boolean.FALSE, "Invalid value for worldguard. Defaulting to false.");
 		boolean usingWB = (Boolean)parse("worldborder", Boolean.FALSE, "Invalid value for worldborder. Defaulting to false.");
+		
+		boolean message = (Boolean)parse("send_message_on_tp", Boolean.FALSE, "Invalid value for send_message_on_tp");
 		
 		Task t = new Task(rand, worlds, maxX, maxZ, minX, minZ, message, price, cooldown, priceEnabled, cooldownEnabled, biomes, blocks, uuid, usingTowny, usingFactions, usingWG, usingWB);
 		
